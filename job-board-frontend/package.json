@@ -2,7 +2,7 @@
   "name": "job-board-frontend",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://23alcor.io/job-board-project",
+  "homepage": "https://23alcor.github.io/job-board-project/",
   "type": "module",
   "scripts": {
     "dev": "vite",
