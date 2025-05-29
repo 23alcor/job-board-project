@@ -19,7 +19,7 @@ function Search() {
           type="text"
         />
       </div>
-      <div className="bg-white h-[95%]">
+      <div className="bg-white flex-1 overflow-y-auto">
         {jobs.length === 0 ? (
           <p>No jobs found.</p>
         ) : (
@@ -31,7 +31,7 @@ function Search() {
               //   {job.location} - ${job.salary}
               //   <p>{job.description}</p>
               // </li>
-              <JobItem key={job.id} company={job.company} title={job.title}  />
+              <JobItem key={job.id} company={job.company} title={job.title} city={job.location}  salary={job.salary} />
             ))}
           </ul>
         )}

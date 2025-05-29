@@ -38,17 +38,26 @@ app.get('/jobs', async (req, res) => {
 });
 
 app.post('/jobs', async (req, res) => {
-  const { title, company, location, salary, description } = req.body;
+  const jobs = Array.isArray(req.body) ? req.body : [req.body];
 
   try {
-    const result = await pool.query(
-      'INSERT INTO jobs (title, company, location, salary, description) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [title, company, location, salary, description]
-    );
-    res.status(201).json(result.rows[0]); // Return the created job
+    const insertedJobs = [];
+
+    for (const job of jobs) {
+      const { title, company, location, salary, description, qualifications, status, hours, benefits, objective, compensation, schedule, industry } = job;
+      const result = await pool.query(
+        `INSERT INTO jobs (title, company, location, salary, description, qualifications, status, hours, benefits, objective, compensation, schedule, industry)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+         RETURNING *`,
+        [title, company, location, salary, description, qualifications, status, hours, benefits, objective, compensation, schedule, industry]
+      );
+      insertedJobs.push(result.rows[0]);
+    }
+
+    res.status(201).json(insertedJobs);
   } catch (err) {
     console.error(err);
-    res.status(500).send('Error creating job');
+    res.status(500).send('Error inserting jobs');
   }
 });
 
