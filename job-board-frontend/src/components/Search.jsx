@@ -1,37 +1,40 @@
 import React, { useEffect, useState } from "react";
 import JobItem from "./JobItem";
+import { SearchCheckIcon } from "lucide-react";
 
-function Search() {
-  const [jobs, setJobs] = useState([]);
+function Search({ jobs, setJobFocus, jobFocus }) {
+  const [query, setQuery] = useState("");
 
-  useEffect(() => {
-    fetch("https://job-board-api-s7tm.onrender.com/jobs")
-      .then((res) => res.json())
-      .then((data) => setJobs(data))
-      .catch((err) => console.error("Error fetching jobs:", err));
-  }, []);
+  const filteredJobs = jobs.filter((job) =>
+    job.title.toLowerCase().includes(query.toLowerCase()) ||
+    job.company.toLowerCase().includes(query.toLowerCase()) ||
+    job.location.toLowerCase().includes(query.toLowerCase())
+  );
+
+
 
   return (
-    <div className="bg-blue-500 w-[30%]">
-      <div className="bg-yellow-500 h-[5%] flex justify-center items-center">
+    <div style={{ background: "rgb(15, 17, 19)", borderColor: "rgb(63, 65, 67)"}} className=" w-[30%] flex flex-col h-200 border-2 mr-2 rounded-2xl">
+      <div className=" h-16 flex justify-center items-center">
+      <SearchCheckIcon color="white"/>
         <input
-          className="bg-gray-600 w-[90%] h-full rounded-full pl-10"
+          style={{ background: "rgb(53, 61, 65)", borderColor: "rgb(63, 65, 67)"}}
+          className=" w-[90%] h-10 rounded-full pl-10"
           type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search jobs..."
+          
         />
+        
       </div>
-      <div className="bg-white flex-1 overflow-y-auto">
-        {jobs.length === 0 ? (
+      <div style={{ background: "rgb(15, 17, 19)", borderColor: "rgb(63, 65, 67)"}} className="flex-1 overflow-y-auto rounded-2xl">
+        {filteredJobs.length === 0 ? (
           <p>No jobs found.</p>
         ) : (
           <ul>
-            {jobs.map((job) => (
-              // <li key={job.id} style={{ marginBottom: "1rem" }}>
-              //   <strong>{job.title}</strong> at {job.company}
-              //   <br />
-              //   {job.location} - ${job.salary}
-              //   <p>{job.description}</p>
-              // </li>
-              <JobItem key={job.id} company={job.company} title={job.title} city={job.location}  salary={job.salary} />
+            {filteredJobs.map((job) => (
+              <JobItem setJobFocus={setJobFocus} jobFocus={jobFocus}  jobs={jobs} key={job.id} id={job.id} company={job.company} title={job.title} city={job.location}  salary={job.salary} />
             ))}
           </ul>
         )}
