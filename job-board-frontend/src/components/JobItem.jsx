@@ -14,7 +14,8 @@ function JobItem({ setJobFocus, jobs, id,  company, title, city, salary, jobFocu
         <div className="text-xs">{company}</div>
         <div className="text-sm pt-1">{title}</div>
         <div className="text-xs pt-1">{city}</div>
-        <div className="text-xs">{salary}</div>
+        <div className="text-xs">{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0,
+    maximumFractionDigits: 0 }).format(salary)}</div>
       </div>
       <div className="h-full pr-3 pt-3">
         <Bookmark className="w-6 h-6" />

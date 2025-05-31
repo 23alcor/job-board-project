@@ -4,7 +4,7 @@ import React from "react";
 function Description({ jobFocus }) {
   if (!jobFocus) {
     return (
-      <div className="bg-green-500 w-[70%] flex flex-col h-200 justify-center items-center">
+      <div style={{ background: "rgb(15, 17, 19)", borderColor: "rgb(63, 65, 67)" }} className="w-[70%] flex flex-col h-200 justify-center items-center">
         <p className="text-white text-xl">Loading...</p>
       </div>
     );
@@ -32,20 +32,23 @@ function Description({ jobFocus }) {
           <div className="pb-5 flex justify-between w-[60%]">
             <div>{jobFocus.location}</div>
             <div>
-              {jobFocus.salary - 20000} - {jobFocus.salary + 20000}
+              {/* {jobFocus.salary - 20000} - {jobFocus.salary + 20000} */}
+              {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0,
+    maximumFractionDigits: 0 }).format(jobFocus.salary - 20000)} - {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0,
+      maximumFractionDigits: 0 }).format(jobFocus.salary + 20000)}
             </div>
           </div>
         </div>
         <div className="flex w-[30%] justify-between items-center">
           <button>
-            <Ellipsis className="w-9 h-9 bg-blue-400" />
+            <Ellipsis style={{ background: "rgb(15, 17, 19)", borderColor: "rgb(63, 65, 67)" }} className="w-9 h-9" />
           </button>
           <button>
-            <Bookmark className="w-9 h-9 bg-blue-400" />
+            <Bookmark style={{ background: "rgb(15, 17, 19)", borderColor: "rgb(63, 65, 67)" }} className="w-9 h-9 bg-blue-400" />
           </button>
-          <div className="rounded-full p-2 flex pl-8">
+          <div style={{ background: "rgb(53, 61, 65)", borderColor: "rgb(63, 65, 67)"}} className="rounded-full p-2 flex pl-4 justify-between">
             <Zap />
-            <h3 className="bg-amber-300">Easy Apply</h3>
+            <h3 className="">Easy Apply</h3>
           </div>
         </div>
       </div>
@@ -58,7 +61,7 @@ function Description({ jobFocus }) {
             <div className="pr-[5%] pl-[5%]">
               <ul className="grid grid-flow-col grid-rows-2 gap-4">
                 {jobFocus.qualifications.map((item, index) => (
-                  <li key={index} className="bg-gray-200 p-4 rounded">
+                  <li style={{ background: "rgb(53, 61, 65)", borderColor: "rgb(63, 65, 67)"}} key={index} className="p-4 rounded">
                     {item}
                   </li>
                 ))}
@@ -71,7 +74,11 @@ function Description({ jobFocus }) {
           </div>
           <div className="h-20">
             <h1>Compensation</h1>
-            <p>{jobFocus.compensation}</p>
+            <p>
+              {/* {jobFocus.compensation} */}
+              {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0,
+    maximumFractionDigits: 0 }).format(jobFocus.salary)}
+            </p>
           </div>
           <div>
             <h1>Benefits</h1>
