@@ -1,5 +1,7 @@
 # Job Board Project
 
+# If it was inactive for a while, please wait 2-3 minutes for API.
+
 A full-stack job board app where users can view and post job listings. Built with:
 
 # Live Demo
